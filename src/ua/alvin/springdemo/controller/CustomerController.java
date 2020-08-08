@@ -40,15 +40,19 @@ public class CustomerController {
         return "customer-add-form";
     }
 
-    @GetMapping("/saveCustomer")
+    @PostMapping("/saveCustomer")//information received from HTML form defined where action="saveCustomer" mentioned
     public String saveCustomer(@Valid @ModelAttribute("customer") Customer theCustomer,
-                                BindingResult theBindingResult) {
-        System.out.println("Customer firstName: |" + theCustomer.getFirstName() + "|");
-        System.out.println("Customer lastName: |" + theCustomer.getLastName() + "|");
-        System.out.println(theBindingResult);
+                                BindingResult theBindingResult, Model model) {
+
+        customerService.saveCustomer(theCustomer);
 
         if (theBindingResult.hasErrors()) return "customer-add-form";
-        else return "list-customers";
+        else {
+            return "redirect:/customer/list";
+            /*THE SAME:
+            model.addAttribute("customers", customerService.getCustomers());
+            return "list-customers";*/
+        }
     }
 
 
