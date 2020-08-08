@@ -1,5 +1,7 @@
 package ua.alvin.springdemo.controller;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +24,6 @@ public class CustomerController {
 
     @GetMapping("/list")
     public String listCustomers(Model model){
-
         //get customers list from Service
         List<Customer> customerList = customerService.getCustomers();
 
@@ -41,10 +42,11 @@ public class CustomerController {
     }
 
     @PostMapping("/saveCustomer")//information received from HTML form defined where action="saveCustomer" mentioned
-    public String saveCustomer(@Valid @ModelAttribute("customer") Customer theCustomer,
-                                BindingResult theBindingResult, Model model) {
-
-        customerService.saveCustomer(theCustomer);
+    public String saveCustomer(@Valid @ModelAttribute("customer") Customer customer,
+                                BindingResult theBindingResult) {
+        System.out.println(1);
+        customerService.saveCustomer(customer);
+        System.out.println(1);
 
         if (theBindingResult.hasErrors()) return "customer-add-form";
         else {
