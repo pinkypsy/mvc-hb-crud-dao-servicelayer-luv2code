@@ -32,14 +32,16 @@
         Order by:
         <br>
         <form:form action="listCustomers" modelAttribute="customer">
-<%--        <form:select path="orderBy">--%>
-<%--&lt;%&ndash;            <form:options items="${orderByOptions}" />&ndash;%&gt;--%>
-<%--            <form:options items="${customer.orderByOptions}" />--%>
-<%--        </form:select>--%>
+<%--        <form:form action="listCustomers" modelAttribute="customerService">--%>
 
-            <form:select path="orderBy">
-                <form:options items="${orderByOptions}" />
-            </form:select>
+                <form:select path="orderBy">
+<%--            <form:options items="${orderByOptions}" />--%>
+            <form:options items="${orderByOptions}" />
+        </form:select>
+
+<%--            <form:select path="orderBy" onchange="location.reload()">--%>
+<%--                <form:options items="${orderByOptions}" />--%>
+<%--            </form:select>--%>
 
         </form:form>
         <br>
