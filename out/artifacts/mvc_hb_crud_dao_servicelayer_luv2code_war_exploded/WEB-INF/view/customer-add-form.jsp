@@ -30,10 +30,6 @@
                 <tbody>
 
                 <tr>
-                    <td><label>Fill out the form:</label></td>
-                </tr>
-
-                <tr>
                     <td><label>First name:</label></td>
                     <td><form:input path="firstName"/></td>
                 </tr>

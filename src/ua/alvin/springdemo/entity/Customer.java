@@ -2,10 +2,13 @@ package ua.alvin.springdemo.entity;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "customer")
 public class Customer {
+
 
     @Id
     @Column(name = "id")
@@ -21,6 +24,11 @@ public class Customer {
     @Column(name = "email")
     private String email;
 
+ /*   @Transient
+    private ArrayList<String> orderByOptions;*/
+    @Transient
+    private String orderBy;
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -32,6 +40,16 @@ public class Customer {
     }
 
     public Customer() {
+//        orderBy = "id";
+      /*  orderByOptions = new ArrayList<>();
+        orderByOptions.add("id");
+        orderByOptions.add("First name");
+        orderByOptions.add("Last name");
+        orderByOptions.add("Email");*/
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getFirstName() {
@@ -57,4 +75,17 @@ public class Customer {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getOrderBy() {
+        return orderBy;
+    }
+
+    public void setOrderBy(String orderBy) {
+        this.orderBy = orderBy;
+    }
+
+  /*  public ArrayList<String> getOrderByOptions() {
+        return orderByOptions;
+    }*/
+
 }

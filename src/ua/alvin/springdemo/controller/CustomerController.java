@@ -3,6 +3,8 @@ package ua.alvin.springdemo.controller;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.support.ManagedList;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,23 +14,28 @@ import ua.alvin.springdemo.entity.Customer;
 import ua.alvin.springdemo.service.CustomerService;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
-
+//#{${orderByOptions}}
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
 
-    //inject customer service layer which contains customerDAO which returns customers by (customerDAO.getCustomers();)
+@Value("#{T(java.util.Arrays).asList(orderByOptions['orderByOptions'])}")
+private ArrayList<String> orderByOptions;
+
+    //inject customer service layer which contains customerDAO and
+    // delegates it work with customers
     @Autowired
     private CustomerService customerService;
 
     @GetMapping("/list")
-    public String listCustomers(Model model){
+    public String listCustomers(Model model, @ModelAttribute("customer")Customer customer){
         //get customers list from Service
         List<Customer> customerList = customerService.getCustomers();
-
         //add customers to the model
         model.addAttribute("customers", customerList);
+        model.addAttribute("orderByOptions", orderByOptions);
 
         return "list-customers";
     }
