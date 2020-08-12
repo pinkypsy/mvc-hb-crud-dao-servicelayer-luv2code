@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ua.alvin.springdemo.entity.Customer;
 import ua.alvin.springdemo.service.CustomerService;
 
@@ -44,25 +41,63 @@ private ArrayList<String> orderByOptions;
 
         model.addAttribute("customer", new Customer());
 
-        return "customer-add-form";
+        return "customer-form";
+    }
+
+    @GetMapping("/showFormUpdateCustomer")
+    public String showFormUpdateCustomer(@RequestParam("customerId") int theId, Model model){
+
+        Customer theCustomer = customerService.getCustomer(theId);
+
+        model.addAttribute("customer", theCustomer);
+
+//        return "customer-update-form";
+        return "customer-form";
+    }
+
+    @GetMapping("/delete")
+    public String deleteCustomer(@RequestParam("customerId") int theId){
+
+        Customer customer = customerService.getCustomer(theId);
+
+//или так
+//        customerService.deleteCustomer(customer);
+
+        customerService.deleteCustomer(theId);
+
+        return "redirect:/customer/list";
     }
 
     @PostMapping("/saveCustomer")//information received from HTML form defined where action="saveCustomer" mentioned
     public String saveCustomer(@Valid @ModelAttribute("customer") Customer customer,
-                                BindingResult theBindingResult) {
+                               BindingResult theBindingResult) {
         System.out.println(1);
         customerService.saveCustomer(customer);
         System.out.println(1);
 
-        if (theBindingResult.hasErrors()) return "customer-add-form";
+        if (theBindingResult.hasErrors()) return "customer-form";
         else {
             return "redirect:/customer/list";
-            /*THE SAME:
-            model.addAttribute("customers", customerService.getCustomers());
-            return "list-customers";*/
         }
     }
 
+ /*   @GetMapping("/showFormUpdateCustomer")
+    public String showFormUpdateCustomer(Model model){
+model.addAttribute("customer", new Customer());
+        return "customer-update-form";
+    }*/
+
+
+
+
+ /*   @PostMapping("/updateCustomer")
+    public String showFormUpdateCustomer(@ModelAttribute("customer")Customer theCustomer,
+                                         BindingResult theBindingResult){
+
+        if (theBindingResult.hasErrors()) return "customer-form";
+        else return "redirect:/customer/list";
+
+    }*/
 
 
 }

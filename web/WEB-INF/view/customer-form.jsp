@@ -10,7 +10,7 @@
           href="${pageContext.request.contextPath}/resources/css/add-customer-style.css">
 
     <title>
-        Add Customer
+        Manage Customer
     </title>
 </head>
 <body>
@@ -25,6 +25,9 @@
     <div id = "content">
 
         <form:form action="saveCustomer" modelAttribute="customer" method="POST">
+
+<%--            associate data below with customer--%>
+            <form:hidden path="id"/>
 
             <table>
                 <tbody>
