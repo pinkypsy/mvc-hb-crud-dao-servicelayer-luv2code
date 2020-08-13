@@ -26,8 +26,8 @@
 
         <form:form action="saveCustomer" modelAttribute="customer" method="POST">
 
-<%--            associate data below with customer--%>
-            <form:hidden path="id"/>
+            <%--            associate data below with customer--%>
+        <form:hidden path="id"/>
 
             <table>
                 <tbody>

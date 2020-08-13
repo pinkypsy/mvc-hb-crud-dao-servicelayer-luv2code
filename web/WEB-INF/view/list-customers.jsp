@@ -28,24 +28,15 @@
         class="add-button">
     </div>
 
-    <div id = "content1">
-        Order by:
-        <br>
-        <form:form action="listCustomers" modelAttribute="customer">
-<%--        <form:form action="listCustomers" modelAttribute="customerService">--%>
+    <div id = "content2">
+        <!--  add a search box -->
+        <form:form action="search" method="GET">
+            Search customer: <input type="text" name="theSearchName" />
 
-                <form:select path="orderBy">
-<%--            <form:options items="${orderByOptions}" />--%>
-            <form:options items="${orderByOptions}" />
-        </form:select>
-
-<%--            <form:select path="orderBy" onchange="location.reload()">--%>
-<%--                <form:options items="${orderByOptions}" />--%>
-<%--            </form:select>--%>
-
+            <input type="submit" value="Search" class="add-button" />
         </form:form>
-        <br>
     </div>
+
 </div>
 
 
@@ -58,7 +49,7 @@
         <th></th>
     </tr>
 
-    <c:forEach var="customer" items="${customers}">
+    <c:forEach var="customer" items="${customerList}">
 
 <%--        construct an update link with customer id--%>
         <c:url var="updateLink" value="/customer/showFormUpdateCustomer">
@@ -81,15 +72,31 @@
     <a href="${deleteLink}"
        onclick="if (!(confirm('Are you sure you want to delete this customer?'))) return false">Delete</a>
         </td>
-<%--  the same:      <td><a href="/customer/updateCustomer" onclick="window.location.href = 'showFormUpdateCustomer'; return false">Update</a></td>--%>
         </tr>
     </c:forEach>
 </table>
 
-<%--<input type="button" value="Add Customer"--%>
-<%--       onclick="window.location.href = 'showFormForAdd'; return false"--%>
-<%--       class="add-button">--%>
-
 </body>
 
 </html>
+
+
+
+<%--    <div id = "content1">--%>
+<%--        Order by:--%>
+<%--        <br>--%>
+<%--        <form:form action="listCustomers" modelAttribute="customer">--%>
+<%--&lt;%&ndash;        <form:form action="listCustomers" modelAttribute="customerService">&ndash;%&gt;--%>
+
+<%--                <form:select path="orderBy">--%>
+<%--&lt;%&ndash;            <form:options items="${orderByOptions}" />&ndash;%&gt;--%>
+<%--            <form:options items="${orderByOptions}" />--%>
+<%--        </form:select>--%>
+
+<%--&lt;%&ndash;            <form:select path="orderBy" onchange="location.reload()">&ndash;%&gt;--%>
+<%--&lt;%&ndash;                <form:options items="${orderByOptions}" />&ndash;%&gt;--%>
+<%--&lt;%&ndash;            </form:select>&ndash;%&gt;--%>
+
+<%--        </form:form>--%>
+<%--        <br>--%>
+<%--    </div>--%>
